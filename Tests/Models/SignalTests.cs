@@ -47,6 +47,18 @@ namespace Tests.Models
 		}
 
 		[Test]
+		public void Constructor_Creates_List_Of_Readouts_Based_On_Values()
+		{
+			const int expectedReadoutsCount = 3;
+			var expectedReadouts = new List<double> { 3, 4, 5 };
+
+			var subject = new Signal(3, 4, 5);
+
+			Assert.That(subject.Count, Is.EqualTo(expectedReadoutsCount));
+			Assert.That(subject.Readouts, Is.EqualTo(expectedReadouts));
+		}
+
+		[Test]
 		public void Readouts_Sets_Readout_List()
 		{
 			const int expectedReadoutsCount = 3;
@@ -184,6 +196,28 @@ namespace Tests.Models
 			var result = subject.Equals(obj);
 
 			Assert.That(result, Is.False);
+		}
+
+		[Test]
+		public void ToString_With_No_Readouts()
+		{
+			const string expectedString = "{}";
+
+			var subject = new Signal();
+			var result = subject.ToString();
+
+			Assert.That(result, Is.EqualTo(expectedString));
+		}
+
+		[Test]
+		public void ToString_With_Few_Readouts()
+		{
+			const string expectedString = "{3, 4, 5}";
+
+			var subject = new Signal(3, 4, 5);
+			var result = subject.ToString();
+
+			Assert.That(result, Is.EqualTo(expectedString));
 		}
 	}
 }

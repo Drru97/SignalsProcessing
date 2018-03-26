@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Common.Models
 {
@@ -21,6 +22,11 @@ namespace Common.Models
 		public Signal(Signal signal) : this(signal.Count)
 		{
 			((List<double>)_readouts).AddRange(signal.Readouts);
+		}
+
+		public Signal(params double[] readouts)
+		{
+			_readouts = readouts;
 		}
 
 		public IList<double> Readouts
@@ -74,6 +80,24 @@ namespace Common.Models
 		public override int GetHashCode()
 		{
 			return _readouts.GetHashCode();
+		}
+
+		public override string ToString()
+		{
+			var sb = new StringBuilder();
+
+			sb.Append("{");
+			foreach (var readout in _readouts)
+			{
+				sb.Append(readout + ", ");
+			}
+
+			if (sb.Length > 2)
+				sb.Remove(sb.Length - 2, 2);
+
+			sb.Append("}");
+
+			return sb.ToString();
 		}
 	}
 }
