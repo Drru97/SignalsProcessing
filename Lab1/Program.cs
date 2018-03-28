@@ -1,41 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
+using Common.Processors;
 
 namespace Lab1
 {
 	internal class Program
 	{
+		private static IServiceProvider _serviceProvider;
+
 		private static void Main(string[] args)
 		{
-			var x = new[] { 6, 7, 1 };
-			var y = new[] { 5, 6, 7 };
+			ConfigureDependencies();
 
-			var convolution = new Convolution().CalculateConvolution(x, y);
-
-			Console.WriteLine($"Signal x = {EnumerableToString(x)}");
-			Console.WriteLine($"Signal y = {EnumerableToString(y)}");
-			Console.WriteLine($"Convolution = {EnumerableToString(convolution)}");
+			var manager = _serviceProvider.GetService<IConvolutionManager>();
+			manager.Compute();
 
 			Console.ReadKey();
 		}
 
-		private static string EnumerableToString(IEnumerable<int> enumerable)
+		private static void ConfigureDependencies()
 		{
-			var sb = new StringBuilder();
+			var services = new ServiceCollection();
 
-			sb.Append("{");
-			foreach (var item in enumerable)
-			{
-				sb.Append(item + ", ");
-			}
+			services
+				.AddTransient<IConvolutionProcessor, ConvolutionProcessor>()
+				.AddTransient<IConvolutionManager, ConvolutionManager>();
 
-			if (sb.Length > 2)
-				sb.Remove(sb.Length - 2, 2);
-
-			sb.Append("}");
-
-			return sb.ToString();
+			_serviceProvider = services.BuildServiceProvider();
 		}
 	}
 }
