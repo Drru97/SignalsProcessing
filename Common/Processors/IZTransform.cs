@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Lab5
+namespace Common.Processors
 {
 	public interface IZTransform
 	{

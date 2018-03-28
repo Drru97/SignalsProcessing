@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Common.Processors;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 
 namespace Lab5

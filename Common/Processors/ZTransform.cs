@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Lab5
+namespace Common.Processors
 {
 	/// <summary>
 	/// Z-Transform is the discrete version of the Laplace transform.
