@@ -10,7 +10,7 @@ namespace Lab3
 {
 	public class DFTManager : IDFTManager
 	{
-		private readonly Signal _signal = new Signal(5, 7, 3, 3, 0, 0, 15, 32, 13, 7);
+		private Signal _signal = new Signal(5, 7, 3, 3, 0, 0, 15, 32, 13, 7);
 
 		public void GetDFT()
 		{
@@ -25,7 +25,15 @@ namespace Lab3
 			Console.WriteLine($"DFT Real = {EnumerableToString(real)}");
 		}
 
-		private (double[] real, double[] imaginary) CalculateDFT()
+        public void SetNewSignal(IEnumerable<double> input)
+        {
+            if (input != null && input.Any())
+            {
+                _signal = new Signal(input.ToArray()); 
+            }
+        }
+
+		public (double[] real, double[] imaginary) CalculateDFT()
 		{
 			var data = GetComplexData().ToArray();
 
