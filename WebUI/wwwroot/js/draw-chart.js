@@ -9,14 +9,15 @@ function drawChart(data) {
     var ctx = document.getElementById("myChart").getContext('2d');
 
     var myChart = new Chart(ctx, {
-        type: 'line',
+        type: 'bar',
         data: {
             labels: labels,
             datasets: [{
                 label: 'transformed signal',
                 data: data,
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)',
+                borderColor: 'rgb(200, 100, 100)',
+                backgroundColor: 'rgb(200, 100, 100)', 
                 lineTension: 0.1
             }]
         },
