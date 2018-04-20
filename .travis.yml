@@ -1,0 +1,10 @@
+language: csharp
+solution: SignalsProcessing.sln
+mono: none
+dotnet: 2.1.105
+
+install:
+  - dotnet restore SignalsProcessing.sln
+
+script:
+  - dotnet test -c Release Tests/Tests.csproj
