@@ -10,6 +10,16 @@ namespace Lab5
 	public class ZTransformManager : IZTransformManager
 	{
 		private readonly Signal _signal = new Signal(5, 7, 3, 3, 0, 0, 15, 32, 13, 7);
+
+		private readonly Complex[] _complex = new Complex[]
+		{
+			new Complex(2 * Math.Cos(1), 2 * Math.Sin(1)),
+			new Complex(2 * Math.Cos(2), 2 * Math.Sin(2)),
+			new Complex(2 * Math.Cos(3), 2 * Math.Sin(3)),
+			new Complex(2 * Math.Cos(4), 2 * Math.Sin(4)),
+			new Complex(2 * Math.Cos(5), 2 * Math.Sin(5))
+		};
+		
 		private readonly IZTransform _zTransform;
 
 		public ZTransformManager(IZTransform zTransform)
@@ -21,7 +31,7 @@ namespace Lab5
 		{
 			var result = CalculateZTransformation();
 
-			Console.WriteLine($"Signal = {_signal}");
+			Console.WriteLine($"Signal = {ComplexEnumerableToString(_complex)}");
 			Console.WriteLine($"Z Transform = {EnumerableToString(result)}");
 		}
 
@@ -29,10 +39,10 @@ namespace Lab5
 		{
 			const int roundDecimals = 3;
 			var data = GetComplexData().ToArray();
-			var length = data.Length;
+			var length = _complex.Length;
 			var x = new float[length];
 
-			_zTransform.RawInverse(data, x, 0, length, 2);
+			_zTransform.RawInverse(_complex, x, 0, length, 1);
 
 			Round(x, roundDecimals);
 
@@ -84,6 +94,24 @@ namespace Lab5
 		}
 
 		private static string EnumerableToString(IEnumerable<float> enumerable)
+		{
+			var sb = new StringBuilder();
+
+			sb.Append("{");
+			foreach (var item in enumerable)
+			{
+				sb.Append(item + ", ");
+			}
+
+			if (sb.Length > 2)
+				sb.Remove(sb.Length - 2, 2);
+
+			sb.Append("}");
+
+			return sb.ToString();
+		}
+		
+		private static string ComplexEnumerableToString(IEnumerable<Complex> enumerable)
 		{
 			var sb = new StringBuilder();
 

@@ -318,5 +318,10 @@ namespace Common.Processors
 		{
 			return new Complex(Re, -Im);
 		}
+
+		public override string ToString()
+		{
+			return $"({Re}, {Im})";
+		}
 	}
 }

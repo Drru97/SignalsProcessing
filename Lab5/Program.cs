@@ -23,7 +23,7 @@ namespace Lab5
 			var services = new ServiceCollection();
 
 			services
-				.AddTransient<IZTransform, ZTransform>(svc => new ZTransform(16))
+				.AddTransient<IZTransform, ZTransform>(svc => new ZTransform(5))
 				.AddTransient<IZTransformManager, ZTransformManager>();
 
 			_serviceProvider = services.BuildServiceProvider();
